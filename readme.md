@@ -1,6 +1,6 @@
 # Renderings Read Me
 
-[![Build status](https://ci.appveyor.com/api/projects/status/a907wfniy73sk5de?svg=true)](https://ci.appveyor.com/project/bmcdavid/renderings)
+[![Build status](https://ci.appveyor.com/api/projects/status/pa469knyqeha6rrt?svg=true)](https://ci.appveyor.com/project/bmcdavid/renderings)
 
 Package  | Version 
 -------- | :------------ 
