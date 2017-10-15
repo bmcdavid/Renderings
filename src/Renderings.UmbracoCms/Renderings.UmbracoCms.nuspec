@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Renderings.UmbracoCms</id>
+    <version>$version$</version>
+    <!-- overridden by "NuGet pack -Version" flag -->
+    <authors>Brad McDavid</authors>
+    <owners>Brad McDavid</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET model rendering framework for Umbraco.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright $year$</copyright>
+    <tags>rendering viewmodels Umbraco</tags>
+    <dependencies>
+      <group targetFramework="net45">
+        <dependency id="Renderings" version="[1,)" />
+        <dependency id="UmbracoCms.Core" version="[7.6,)" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="**\*.cs" target="src" exclude="obj\**\*.cs" />
+    <file src="readme.txt" target="readme.txt" />
+    
+    <file src="bin\Release\net45\Renderings.UmbracoCms.dll" target="lib\net45" />
+    <file src="bin\Release\net45\Renderings.UmbracoCms.pdb" target="lib\net45" />
+    <file src="bin\Release\net45\Renderings.UmbracoCms.xml" target="lib\net45" />
+  </files>
+</package>

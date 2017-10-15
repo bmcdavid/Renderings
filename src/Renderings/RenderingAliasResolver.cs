@@ -16,7 +16,7 @@ namespace Renderings
         private readonly IStartupConfiguration _StartupConfiguration;
 
         /// <summary>
-        /// Backing field, do not use directly, always use EnsureViewModels to ensure creation
+        /// Backing field, do not use directly, always use EnsureRenderingModels to ensure creation
         /// </summary>
         private Dictionary<string, ResolveResult> _RenderingModels;
 
@@ -26,16 +26,16 @@ namespace Renderings
             _ReflectionHelper = reflectionHelper;
         }
 
-        private Dictionary<string, ResolveResult> EnusreViewModels
+        private Dictionary<string, ResolveResult> EnusreRenderingModels
         {
             get
             {
                 if (_RenderingModels == null)
                 {
                     _RenderingModels = new Dictionary<string, ResolveResult>();
-                    var discoveredViewModels = _StartupConfiguration.AssemblyScanner.GetTypesFor(_AttrRenderingAliasType);
+                    var discoveredRenderings = _StartupConfiguration.AssemblyScanner.GetTypesFor(_AttrRenderingAliasType);
 
-                    foreach (var type in discoveredViewModels)
+                    foreach (var type in discoveredRenderings)
                     {
                         var attr = _ReflectionHelper.GetCustomAttribute(type, _AttrRenderingAliasType, false)
                             .OfType<RenderingDocumentAliasAttribute>()
@@ -54,7 +54,7 @@ namespace Renderings
 
         public virtual ResolveResult Resolve(string documentAlias)
         {
-            if (EnusreViewModels.TryGetValue(documentAlias, out ResolveResult match))
+            if (EnusreRenderingModels.TryGetValue(documentAlias, out ResolveResult match))
             {
                 return match;
             }
@@ -109,7 +109,7 @@ namespace Renderings
             }).ToList();
 
 #endif
-            var matches = EnusreViewModels.Where(x => filteredTypes.Any(y => y == x.Value.ModelType)).ToList();
+            var matches = EnusreRenderingModels.Where(x => filteredTypes.Any(y => y == x.Value.ModelType)).ToList();
 
             if (matches.Count != filteredTypes.Count)
             {

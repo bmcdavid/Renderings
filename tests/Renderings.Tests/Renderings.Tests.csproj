@@ -69,6 +69,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatorAndTypeResolverTests.cs" />
     <Compile Include="Mocks\IService.cs" />
     <Compile Include="Mocks\ISidebar.cs" />
     <Compile Include="Mocks\MockRendering.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Mocks\Service.cs" />
     <Compile Include="AliasResolverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeFinderTests.cs" />
     <Compile Include="_Setup.cs" />
   </ItemGroup>
   <ItemGroup>

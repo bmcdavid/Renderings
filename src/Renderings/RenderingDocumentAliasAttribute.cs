@@ -1,7 +1,6 @@
 ﻿using Renderings;
 using System;
 
-[assembly: DotNetStarter.Abstractions.DiscoverableAssembly]
 [assembly: DotNetStarter.Abstractions.DiscoverTypes(typeof(RenderingDocumentAliasAttribute))]
 
 namespace Renderings
@@ -14,8 +13,6 @@ namespace Renderings
             DocumentAlias = documentAlias;
             Description = description ?? "Genral document type";
         }
-
-        //todo: should there be long,guid stored conversions?
 
         public string DocumentAlias { get; private set; }
 

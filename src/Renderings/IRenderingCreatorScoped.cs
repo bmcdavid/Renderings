@@ -3,7 +3,7 @@
 namespace Renderings
 {
     /// <summary>
-    /// Creates functions to create viewmodels with a source object, scoped suffix is convention implementations should be registered as a scoped lifetime
+    /// Creates functions to create renderings with a source object, scoped suffix is convention implementations should be registered as a scoped lifetime
     /// </summary>
     public interface IRenderingCreatorScoped
     {

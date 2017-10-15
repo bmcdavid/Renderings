@@ -1,27 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DotNetStarter.Abstractions;
-using System;
+﻿using DotNetStarter.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Renderings.Tests.Mocks;
-using System.Linq;
+using System;
 
 namespace Renderings.Tests
 {
     [TestClass]
     public class AliasResolverTests
     {
-        Import<IRenderingAliasResolver> AliasResolver;
-        Import<IRenderingTypeResolver> TypeResolver;
-        Import<ILocator> Locator;
-        Import<IRenderingTypeFinder> TypeFinder;
-        
-        [TestMethod]
-        public void ShouldFindISidebar()
-        {
-            Assert.IsNotNull(TypeFinder.Service);
-            var sut = TypeFinder.Service.GetTypesFor<ISidebar>();
-
-            Assert.IsTrue(sut.Where(x => !x.IsAbstract && !x.IsInterface).Count() == 1);
-        }
+        private Import<IRenderingAliasResolver> AliasResolver;
 
         [TestMethod]
         public void ShouldResolveAliasByType()
@@ -54,40 +41,6 @@ namespace Renderings.Tests
         public void ShouldThrowErrorResolvingPropertyAlias()
         {
             var sut = AliasResolver.Service.ResolvePropertyAlias<MockRendering>(x => x.UnmappedProperty);
-        }
-
-        [TestMethod]
-        public void ShouldResolveRenderingType()
-        {
-            var sut = TypeResolver.Service.ResolveCreator<MockSource>("test");
-
-            Assert.IsNotNull(sut);
-            Assert.IsTrue(sut == typeof(Func<MockSource, MockRendering>));
-        }
-
-        [TestMethod]
-        public void ShouldResolveFuncCreator()
-        {
-            var creator = TypeResolver.Service.ResolveCreator<MockSource>("test");
-            var sut = DotNetStarter.ApplicationContext.Default.Locator.Get(creator) as Func<MockSource, MockRendering>;
-            Assert.IsNotNull(sut);
-        }
-
-        [TestMethod]
-        public void ShouldResolveCreatorFromScopedLocatorAndCreateInstance()
-        {
-            using (var scoped = Locator.Service.OpenScope())
-            {
-                var creator = scoped.Get<IRenderingCreatorScoped>().GetCreator<MockSource>("test");
-                var sut = DotNetStarter.ApplicationContext.Default.Locator.Get(creator.GetType()) as Func<MockSource, MockRendering>;
-                var t = new MockSource() { Id = 100, Name = "Test Soruce" };
-
-                Assert.IsNotNull(sut);
-
-                var instance = sut(t);
-
-                Assert.IsTrue(instance.Mock.Id == 100);
-            }
         }
     }
 }
