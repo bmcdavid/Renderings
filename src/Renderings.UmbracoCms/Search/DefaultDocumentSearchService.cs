@@ -8,6 +8,9 @@ using Umbraco.Web;
 
 namespace Renderings.UmbracoCms.Search
 {
+    /// <summary>
+    /// Default implementation of IDocumentSearchService
+    /// </summary>
     [Registration(typeof(IDocumentSearchService), Lifecycle.Transient)]
     public class DefaultDocumentSearchService : IDocumentSearchService
     {
@@ -27,6 +30,8 @@ namespace Renderings.UmbracoCms.Search
         /// </summary>
         /// <param name="documentTypes">Document type aliases to search for.</param>
         /// <param name="searchGroups">A list of search groupings, if you have more than one group it will apply an and to the search criteria</param>
+        /// <param name="sortFields">optional sort fields.</param>
+        /// <param name="sortDescending">sort direction</param>
         /// <returns>Examine search results</returns>
         public ISearchResults Search(IEnumerable<string> documentTypes, IEnumerable<SearchGroup> searchGroups, IEnumerable<string> sortFields = null, bool sortDescending = false)
         {

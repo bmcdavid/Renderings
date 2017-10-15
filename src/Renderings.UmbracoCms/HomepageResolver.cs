@@ -7,11 +7,20 @@ using Umbraco.Web;
 
 namespace Renderings.UmbracoCms
 {
+    /// <summary>
+    /// Default IHomepageResolver implementation
+    /// </summary>
     [Registration(typeof(IHomepageResolver), Lifecycle.Singleton)]
     public class HomepageResolver : IHomepageResolver
     {
         private Dictionary<string, int?> _ResolvedNodeIds = new Dictionary<string, int?>();
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="requestUrl"></param>
+        /// <param name="umbracoHelper"></param>
+        /// <returns></returns>
         public virtual int? ResolveHomepageNodeId(Uri requestUrl, UmbracoHelper umbracoHelper = null)
         {
             if (requestUrl == null)
@@ -65,6 +74,11 @@ namespace Renderings.UmbracoCms
             return id;
         }
 
+        /// <summary>
+        /// Tries to resolve homepage from given umbracoHelper or currents request url
+        /// </summary>
+        /// <param name="umbracoHelper"></param>
+        /// <returns></returns>
         public int? ResolveHomepageNodeId(UmbracoHelper umbracoHelper = null)
         {
             var helper = EnsureUmbracoHelper(umbracoHelper);
@@ -72,9 +86,31 @@ namespace Renderings.UmbracoCms
             return ResolveHomepageNodeId(helper.UmbracoContext.HttpContext.Request.Url, helper);
         }
 
+        /// <summary>
+        /// Tries to resolve homepage from IContentBase path
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public virtual int? ResolveHomepageNodeId(IContentBase content)
         {
             return ResolveFromPath(content.Path);
+        }
+
+        /// <summary>
+        /// Resolves url from given homepage Id
+        /// </summary>
+        /// <param name="homepageId"></param>
+        /// <returns></returns>
+        public virtual string ResolveHomepageUrl(int? homepageId)
+        {
+            var resolved = _ResolvedNodeIds.FirstOrDefault(x => x.Value == homepageId).Key;
+
+            return resolved;
+        }
+
+        private UmbracoHelper EnsureUmbracoHelper(UmbracoHelper umbracoHelper)
+        {
+            return umbracoHelper ?? new UmbracoHelper(UmbracoContext.Current);
         }
 
         private int? ResolveFromPath(string path)
@@ -85,18 +121,6 @@ namespace Renderings.UmbracoCms
             }
 
             return null;
-        }
-
-        private UmbracoHelper EnsureUmbracoHelper(UmbracoHelper umbracoHelper)
-        {
-            return umbracoHelper ?? new UmbracoHelper(UmbracoContext.Current);
-        }
-
-        public virtual string ResolveHomepageUrl(int? homepageId)
-        {
-            var resolved = _ResolvedNodeIds.FirstOrDefault(x => x.Value == homepageId).Key;
-
-            return resolved;
         }
     }
 }

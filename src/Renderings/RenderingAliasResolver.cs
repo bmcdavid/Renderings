@@ -60,6 +60,11 @@ namespace Renderings
             }
         }
 
+        /// <summary>
+        /// Resolves a string alias to a ResolveResult which may have errors
+        /// </summary>
+        /// <param name="documentAlias"></param>
+        /// <returns></returns>
         public virtual ResolveResult Resolve(string documentAlias)
         {
             if (EnusreRenderingModels.TryGetValue(documentAlias, out ResolveResult match))
@@ -72,11 +77,21 @@ namespace Renderings
             return new ResolveResult(alias: documentAlias);
         }
 
+        /// <summary>
+        /// Resolve a type from a document alias
+        /// </summary>
+        /// <param name="documentAlias"></param>
+        /// <returns></returns>
         public virtual Type ResolveAlias(string documentAlias)
         {
             return Resolve(documentAlias).ModelType;
         }
 
+        /// <summary>
+        /// Resolves many types from many aliases
+        /// </summary>
+        /// <param name="documentAliases"></param>
+        /// <returns></returns>
         public virtual IEnumerable<Type> ResolveAliases(ICollection<string> documentAliases)
         {
             foreach (var alias in documentAliases)
@@ -92,6 +107,12 @@ namespace Renderings
             yield break;
         }
 
+        /// <summary>
+        /// Resolves a property alias from given expression
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         public virtual string ResolvePropertyAlias<T>(Expression<Func<T, object>> expression)
         {
             var member = ResolveMemberInfo(expression);
@@ -99,11 +120,21 @@ namespace Renderings
             return GetPropertyAttributeValue<RenderingPropertyAliasAttribute, string>(member, attr => attr.PropertyAlias);
         }
 
+        /// <summary>
+        /// Resolves a string alias from given type
+        /// </summary>
+        /// <param name="renderingModelType"></param>
+        /// <returns></returns>
         public virtual string ResolveType(Type renderingModelType)
         {
             return ResolveTypes(new Type[] { renderingModelType }).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Resolves many types to many string aliases
+        /// </summary>
+        /// <param name="types"></param>
+        /// <returns></returns>
         public virtual IEnumerable<string> ResolveTypes(ICollection<Type> types)
         {
 #if !NETSTANDARD1_0
@@ -132,6 +163,14 @@ namespace Renderings
             yield break;
         }
 
+        /// <summary>
+        /// Gets a given attribute's value for memberinfo
+        /// </summary>
+        /// <typeparam name="TAttribute"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="memberInfo"></param>
+        /// <param name="valueSelector"></param>
+        /// <returns></returns>
         protected static TValue GetPropertyAttributeValue<TAttribute, TValue>(MemberInfo memberInfo, Func<TAttribute, TValue> valueSelector) where TAttribute : Attribute
         {
             var attr = memberInfo.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
@@ -140,6 +179,12 @@ namespace Renderings
                 throw new Exception($"Unable to find attribute {typeof(TAttribute).FullName} on {memberInfo.Name}");// default(TValue);
         }
 
+        /// <summary>
+        /// Gets member info from an expression
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression"></param>
+        /// <returns></returns>
         protected static MemberInfo ResolveMemberInfo<T>(Expression<Func<T, object>> expression)
         {
             MemberInfo memberInfo = null;

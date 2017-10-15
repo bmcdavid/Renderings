@@ -10,22 +10,42 @@ using UmbracoExamine;
 
 namespace Renderings.UmbracoCms.Search
 {
+    /// <summary>
+    /// Provides customization of Umbraco Examine indexes
+    /// </summary>
     public class ContentIndexCustomizer : ApplicationEventHandler
     {
+        /// <summary>
+        /// Imported locator as this area doesn't support DI
+        /// </summary>
         public Import<ILocator> FallbackLocator { get; set; }
+
         private readonly ILocator _Locator;
         private readonly IEnumerable<IContentIndexCustomizer> _IndexCustomizers;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ContentIndexCustomizer() : this(unscopedLocator: null)
         {
         }
 
+        /// <summary>
+        /// Mockable constructor
+        /// </summary>
+        /// <param name="indexCustomizers"></param>
+        /// <param name="unscopedLocator"></param>
         public ContentIndexCustomizer(IEnumerable<IContentIndexCustomizer> indexCustomizers = null, ILocator unscopedLocator = null)
         {
             _Locator = unscopedLocator ?? FallbackLocator.Service;
             _IndexCustomizers = indexCustomizers ?? _Locator.GetAll<IContentIndexCustomizer>();
         }
 
+        /// <summary>
+        /// Attaches to lucene document writing event
+        /// </summary>
+        /// <param name="umbracoApplication"></param>
+        /// <param name="applicationContext"></param>
         protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
             foreach (var item in Examine.ExamineManager.Instance.IndexProviderCollection)

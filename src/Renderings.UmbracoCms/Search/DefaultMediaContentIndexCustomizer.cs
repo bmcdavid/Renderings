@@ -21,20 +21,39 @@
         /// </summary>
         public static IEnumerable<string> AllowedIndexers { get; set; } = new string[] { "ExternalIndexer" };
 
+        /// <summary>
+        /// Lucene fieldname for file contents
+        /// </summary>
         public const string FileContentSearchField = "__FileContents";
 
         private readonly IMediaContentIndexer _MediaContentIndexer;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mediaContentIndexer"></param>
         public DefaultMediaContentIndexCustomizer(IMediaContentIndexer mediaContentIndexer)
         {
             _MediaContentIndexer = mediaContentIndexer;
         }
 
+        /// <summary>
+        /// Determines if customizer can index this item
+        /// </summary>
+        /// <param name="documentAlias"></param>
+        /// <param name="indexerName"></param>
+        /// <returns></returns>
         public bool CanIndex(string documentAlias, string indexerName)
         {
             return string.IsNullOrWhiteSpace(documentAlias) == false && AllowedIndexers?.Contains(indexerName) == true;
         }
 
+        /// <summary>
+        /// Customize the indexable fields
+        /// </summary>
+        /// <param name="fields"></param>
+        /// <param name="dataService"></param>
+        /// <returns></returns>
         public IEnumerable<IContentIndexItem> CustomizeItems(Dictionary<string, string> fields, IDataService dataService)
         {
             List<IContentIndexItem> customizers = new List<IContentIndexItem>();

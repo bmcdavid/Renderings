@@ -9,6 +9,9 @@ namespace Renderings.UmbracoCms
     [Registration(typeof(UmbracoContextProvider), Lifecycle.Singleton)]
     public class UmbracoContextProvider
     {
+        /// <summary>
+        /// Provides current umbraco context
+        /// </summary>
         public virtual UmbracoContext Current => UmbracoContext.Current;
     }
 }
