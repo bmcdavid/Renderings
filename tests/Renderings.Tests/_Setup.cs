@@ -1,6 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DotNetStarter.Abstractions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Renderings.Tests;
 
-[assembly: DotNetStarter.Abstractions.DiscoverableAssembly]
+[assembly: DiscoverableAssembly]
+[assembly: LocatorRegistryFactory(typeof(CustomLocatorFactory), typeof(DotNetStarter.DryIocLocatorFactory))]
 
 namespace Renderings.Tests
 {
@@ -13,6 +16,15 @@ namespace Renderings.Tests
             var assemblies = DotNetStarter.ApplicationContext.GetScannableAssemblies();
 
             DotNetStarter.ApplicationContext.Startup(assemblies: assemblies);
+        }
+    }
+
+    public class CustomLocatorFactory : ILocatorRegistryFactory
+    {
+        public ILocatorRegistry CreateRegistry()
+        {
+            return new DotNetStarter.DryIocLocator();
+            //return new DotNetStarter.StructureMapLocator();
         }
     }
 }

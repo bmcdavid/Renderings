@@ -2,6 +2,7 @@
 using DotNetStarter.Abstractions;
 using System;
 using Renderings.Tests.Mocks;
+using System.Linq;
 
 namespace Renderings.Tests
 {
@@ -9,16 +10,24 @@ namespace Renderings.Tests
     public class AliasResolverTests
     {
         Import<IRenderingAliasResolver> AliasResolver;
-
         Import<IRenderingTypeResolver> TypeResolver;
-
         Import<ILocator> Locator;
+        Import<IRenderingTypeFinder> TypeFinder;
+        
+        [TestMethod]
+        public void ShouldFindISidebar()
+        {
+            Assert.IsNotNull(TypeFinder.Service);
+            var sut = TypeFinder.Service.GetTypesFor<ISidebar>();
+
+            Assert.IsTrue(sut.Where(x => !x.IsAbstract && !x.IsInterface).Count() == 1);
+        }
 
         [TestMethod]
         public void ShouldResolveAliasByType()
         {
             Assert.IsNotNull(AliasResolver.Service);
-            var sut = AliasResolver.Service.ResolveType(typeof(Mocks.MockRendering));
+            var sut = AliasResolver.Service.ResolveType(typeof(MockRendering));
 
             Assert.IsTrue(sut == "test");
         }
@@ -29,7 +38,7 @@ namespace Renderings.Tests
             Assert.IsNotNull(AliasResolver.Service);
             var sut = AliasResolver.Service.ResolveAlias("test");
 
-            Assert.IsTrue(sut == typeof(Mocks.MockRendering));
+            Assert.IsTrue(sut == typeof(MockRendering));
         }
 
         [TestMethod]

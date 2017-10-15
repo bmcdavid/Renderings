@@ -15,8 +15,6 @@ namespace Renderings
 
         public RenderingDocumentAliasAttribute Descriptor { get; }
 
-        public Type CreatorType { get; set; }
-
         public string DocumentAlias { get; }
 
         public bool HasErrors

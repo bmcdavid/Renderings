@@ -18,4 +18,13 @@
     <ProjectReference Include="..\Renderings\Renderings.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Search\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
 </Project>

@@ -44,11 +44,17 @@
     <Reference Include="DotNetStarter.Abstractions, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b0eb17a6888ebfb7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotNetStarter.Abstractions.1.2.2\lib\net45\DotNetStarter.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetStarter.DryIoc, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetStarter.DryIoc.1.2.1\lib\net45\DotNetStarter.DryIoc.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetStarter.RegistrationAbstractions, Version=1.0.1.0, Culture=neutral, PublicKeyToken=b0eb17a6888ebfb7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotNetStarter.RegistrationAbstractions.1.0.1\lib\net45\DotNetStarter.RegistrationAbstractions.dll</HintPath>
     </Reference>
     <Reference Include="DotNetStarter.StructureMap, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotNetStarter.StructureMap.1.1.1\lib\net45\DotNetStarter.StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="DryIoc, Version=2.12.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DryIoc.dll.2.12.3\lib\net45\DryIoc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -64,8 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mocks\IService.cs" />
+    <Compile Include="Mocks\ISidebar.cs" />
     <Compile Include="Mocks\MockRendering.cs" />
     <Compile Include="Mocks\MockSource.cs" />
+    <Compile Include="Mocks\MockTypeFinderSettings.cs" />
     <Compile Include="Mocks\Service.cs" />
     <Compile Include="AliasResolverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

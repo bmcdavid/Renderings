@@ -17,7 +17,7 @@ namespace Renderings
 
         public Func<T, object> GetCreator<T>(string alias)
         {
-            var creatorType = _RenderingTypeResolver.ResolveCreator<object>(alias);
+            var creatorType = _RenderingTypeResolver.ResolveCreator<T>(alias);
 
             return _ScopedLocator.Get(creatorType) as Func<T, object>;
         }

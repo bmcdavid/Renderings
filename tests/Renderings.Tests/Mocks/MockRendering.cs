@@ -1,7 +1,7 @@
 ﻿namespace Renderings.Tests.Mocks
 {
     [RenderingDocumentAlias("test")]
-    public class MockRendering
+    public class MockRendering : ISidebar, IRendering
     {
         public MockRendering(MockSource mockSource, IService service)
         {
@@ -9,7 +9,7 @@
             Service = service;
         }
 
-        public  MockSource Mock { get; }
+        public MockSource Mock { get; }
 
         public IService Service { get; }
 
@@ -17,5 +17,12 @@
         public string Name { get; }
 
         public string UnmappedProperty { get; }
+
+        public bool IsFullPage => true;
+
+        public string GetPartialView(string renderTag = null)
+        {
+            return "TestView";
+        }
     }
 }

@@ -8,32 +8,29 @@ namespace Renderings
     public class RenderingTypeResolver : IRenderingTypeResolver
     {
         private readonly IRenderingAliasResolver _RenderingAliasResolver;
-        private Dictionary<string, ResolveResult> _CreatorDictionary;
+        private Dictionary<string, Type> _CreatorDictionary;
 
         public RenderingTypeResolver(IRenderingAliasResolver renderingAliasResolver)
         {
             _RenderingAliasResolver = renderingAliasResolver;
-            _CreatorDictionary = new Dictionary<string, ResolveResult>();
+            _CreatorDictionary = new Dictionary<string, Type>();
         }
 
-        public virtual Type ResolveCreator<TSource>(string alias, bool allowBackEnd = false)
+        public virtual Type ResolveCreator<TSource>(string alias)
         {
-            if (!_CreatorDictionary.TryGetValue(alias, out ResolveResult result))
+            if (!_CreatorDictionary.TryGetValue(alias, out Type creator))
             {
-                result = _RenderingAliasResolver.Resolve(alias);
+                var result = _RenderingAliasResolver.Resolve(alias);
 
                 if (result.HasErrors == false)
                 {
-                    result.CreatorType = typeof(Func<,>).MakeGenericType(typeof(TSource), result.ModelType);
+                    creator = typeof(Func<,>).MakeGenericType(typeof(TSource), result.ModelType);
                 }
 
-                _CreatorDictionary.Add(alias, result);
+                _CreatorDictionary.Add(alias, creator);
             }
-
-            if (result.HasErrors || allowBackEnd && result.Descriptor.BackendDocument)
-                return null;
-
-            return result.CreatorType;
+            
+            return creator;
         }
     }
 
