@@ -5,7 +5,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Renderings.UmbracoCms.xml</DocumentationFile>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\renderings.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

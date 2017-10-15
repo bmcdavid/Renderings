@@ -27,4 +27,5 @@ namespace Renderings.Tests
             //return new DotNetStarter.StructureMapLocator();
         }
     }
+    
 }

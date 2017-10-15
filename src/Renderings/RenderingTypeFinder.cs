@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Renderings
 {
+    /// <summary>
+    /// Default implementation for IRenderingTypeFinder
+    /// </summary>
     [Registration(typeof(IRenderingTypeFinder), Lifecycle.Singleton)]
     public class RenderingTypeFinder : IRenderingTypeFinder
     {
@@ -12,11 +15,20 @@ namespace Renderings
 
         private IAssemblyScanner _TypeFinder;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="renderingTypeFinderSettings"></param>
         public RenderingTypeFinder(IRenderingTypeFinderSettings renderingTypeFinderSettings)
         {
             _RenderingTypeFinderSettings = renderingTypeFinderSettings;
         }
 
+        /// <summary>
+        /// Gets types for given IRenderings
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public IEnumerable<Type> GetTypesFor<T>() where T : IRendering
         {
             EnsureTypes();

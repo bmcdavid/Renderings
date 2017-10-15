@@ -11,7 +11,6 @@ namespace Renderings
         /// Converts rendering alias into a Func creator that requires TSource constructor parameter and returns an object
         /// </summary>
         /// <param name="alias">document type string alias</param>
-        /// <param name="allowBackEndTypes">if false, and resolved creator is backendonly then null is returned</param>
         /// <returns>function to create view models or null</returns>
         Type ResolveCreator<TSource>(string alias);
     }

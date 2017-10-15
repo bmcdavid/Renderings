@@ -6,10 +6,13 @@ using Umbraco.Web.Routing;
 
 namespace Renderings.UmbracoCms
 {
+    /// <summary>
+    /// Registers UmbracoContext and UmbracoHelper for scoped lifetime
+    /// </summary>
     [StartupModule]
     public class UmbracoLocatorConfigure : ILocatorConfigure
     {
-        public void Configure(ILocatorRegistry locator, IStartupEngine engine)
+        void ILocatorConfigure.Configure(ILocatorRegistry locator, IStartupEngine engine)
         {
             // use scoped to not create many per web request
             locator.Add(typeof(UmbracoContext), _ => EnsureUmbracoContext(), LifeTime.Scoped);

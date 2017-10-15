@@ -14,7 +14,6 @@
         /// Simple rendering engine allowing custom views per rendering tag, for example a custom razor view
         /// </summary>
         /// <param name="renderTag"></param>
-        /// <remarks>
         /// <returns></returns>
         string GetPartialView(string renderTag = null);
     }

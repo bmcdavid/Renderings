@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace Renderings
 {
+    /// <summary>
+    /// Default implementation fro IRenderingAliasResolver
+    /// </summary>
     [Registration(typeof(IRenderingAliasResolver), Lifecycle.Singleton)]
     public class RenderingAliasResolver : IRenderingAliasResolver
     {
@@ -20,6 +23,11 @@ namespace Renderings
         /// </summary>
         private Dictionary<string, ResolveResult> _RenderingModels;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="startupConfig"></param>
+        /// <param name="reflectionHelper"></param>
         public RenderingAliasResolver(IStartupConfiguration startupConfig, IReflectionHelper reflectionHelper)
         {
             _StartupConfiguration = startupConfig;

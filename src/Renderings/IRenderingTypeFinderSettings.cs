@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace Renderings
 {
+    /// <summary>
+    /// Provides settings for IRenderTypeFinder
+    /// </summary>
     public interface IRenderingTypeFinderSettings
     {
         /// <summary>
