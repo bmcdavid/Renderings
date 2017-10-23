@@ -51,7 +51,7 @@ namespace Renderings
 
                         if (attr != null)
                         {
-                            _RenderingModels.Add(attr.DocumentAlias, new ResolveResult(type, attr, attr.DocumentAlias));
+                            _RenderingModels[attr.DocumentAlias] = new ResolveResult(type, attr, attr.DocumentAlias);
                         }
                     }
                 }

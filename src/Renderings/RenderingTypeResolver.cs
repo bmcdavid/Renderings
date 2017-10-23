@@ -40,7 +40,7 @@ namespace Renderings
                     creator = typeof(Func<,>).MakeGenericType(typeof(TSource), result.ModelType);
                 }
 
-                _CreatorDictionary.Add(alias, creator);
+                _CreatorDictionary[alias] = creator;
             }
             
             return creator;

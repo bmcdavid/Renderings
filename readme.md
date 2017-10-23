@@ -27,32 +27,102 @@ To use this package you need to install the following NuGet packages:
 * DotNetStarter.Extensions.WebApi
 * DotNetStarter.DryIoc or DotnetStarter.StructureMap (either one is fine)
 
-Next create a custom global.asax inheriting from **Umbraco.Web.UmbracoApplication** and in the constructor execute DotNetStarter.ApplicationContext.Startup.
+Create a custom global.asax class inheriting from **Umbraco.Web.UmbracoApplication** and in the constructor execute DotNetStarter.ApplicationContext.Startup.
 
 ```cs
-    public class Application : Umbraco.Web.UmbracoApplication
+public class Application : Umbraco.Web.UmbracoApplication
+{
+    public Application()
     {
-        public Application()
+        // discovers assemblies using: [assembly: DotNetStarter.Abstractions.DiscoverableAssembly]
+        IList<Assembly> discoverableAssemblies = DotNetStarter.ApplicationContext.GetScannableAssemblies();
+        IEnumerable<Assembly> preFilteredAssemblies = new Assembly[]
         {
-            IList<Assembly> discoverableAssemblies = DotNetStarter.ApplicationContext.GetScannableAssemblies();
-            IEnumerable<Assembly> preFilteredAssemblies = new Assembly[]
-            {
-                    // needed for Umbraco UI with custom dependency resolver
-                    typeof(Umbraco.Web.UmbracoApplication).Assembly,
-                    typeof(Umbraco.Forms.Web.Controllers.UmbracoFormsController).Assembly,
+                // Scan for backoffice controllers
+                typeof(Umbraco.Web.UmbracoApplication).Assembly,
 
-                    // umbraco plugin, needing a nuget install...
-                    typeof(Diplo.TraceLogViewer.Controllers.TraceLogTreeController).Assembly,
+                // add additional umbraco plugins, which inject controllers
+                typeof(Umbraco.Forms.Web.Controllers.UmbracoFormsController).Assembly,
+                typeof(Diplo.TraceLogViewer.Controllers.TraceLogTreeController).Assembly,
 
-                    // types in this project
-                    typeof(Application).Assembly
-            };
+                // types in this project
+                typeof(Application).Assembly
+        };
 
-            preFilteredAssemblies = preFilteredAssemblies.Union(discoverableAssemblies);
-
-            DotNetStarter.ApplicationContext.Startup(assemblies: preFilteredAssemblies);
-        }
+        preFilteredAssemblies = preFilteredAssemblies.Union(discoverableAssemblies);
+        
+        // can be customized further using a IStartupConfiguration implementation
+        DotNetStarter.ApplicationContext.Startup(assemblies: preFilteredAssemblies);
     }
+}
+```
+
+Update the **global.asax** file's **Inherits** to use the full namespace of our custom class as noted below:
+
+```cs
+<%@ Application Inherits="Full.Namespace.Of.Class.Application" Language="C#" %>
+```
+
+Then create a custom default controller to create the rendering models
+```cs
+public class CustomApplicationBaseController : RenderMvcController
+{
+    private readonly IRenderingCreatorScoped _RenderingCreator;
+
+    public CustomApplicationBaseController() { }
+
+    public CustomApplicationBaseController(IRenderingCreatorScoped renderingCreator)
+    {
+        _RenderingCreator = renderingCreator;
+    }
+
+    public override ActionResult Index(RenderModel model)
+    {
+        var rendering = BuildRendering(model.Content, model.CurrentCulture);
+
+        if (rendering == null)
+        {
+            return CurrentTemplate(model); // Fallback to default behaviour
+        }
+
+        if (rendering.IsFullPage == false)
+        {
+            return new HttpNotFoundResult(); // don't allow non full page models to return
+        }
+
+        return CurrentTemplate(rendering);
+    }
+
+    private IUmbracoRendering BuildRendering(IPublishedContent content, CultureInfo cultureInfo)
+    {
+        var creator = _RenderingCreator.GetCreator<IPublishedContent>(content.DocumentTypeAlias);
+        var returnModel = creator.Invoke(content) as IUmbracoRendering;
+
+        if (returnModel is IUmbracoRenderingWithCulture cultureModel)
+        {
+            cultureModel.CurrentCulture = cultureInfo;
+        }
+
+        return returnModel;
+    }
+}
+```
+
+Finally hijack the default MVC controller for Umbraco page content
+```cs
+/// <summary>
+/// This class registers the base application controller and setups up error page routing
+/// </summary>
+public class ApplicationSetupMvc : ApplicationEventHandler
+{
+    protected override void ApplicationStarting(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
+    {
+        base.ApplicationStarting(umbracoApplication, applicationContext);
+
+        // note: this will set all routes to be hijacked by this base controller
+        Umbraco.Web.Mvc.DefaultRenderMvcControllerResolver.Current.SetDefaultControllerType(typeof(CustomApplicationBaseController));
+    }
+}
 ```
 
 ## Rendering Example
