@@ -33,6 +33,9 @@ namespace Renderings
         {
             var creatorType = _RenderingTypeResolver.ResolveCreator<T>(alias);
 
+            if (creatorType == null)
+                return null;
+
             return _ScopedLocator.Get(creatorType) as Func<T, object>;
         }
     }    

@@ -25,7 +25,9 @@ To use this package you need to install the following NuGet packages:
 
 * Renderings.UmbracoCms
 * DotNetStarter.Extensions.WebApi
+* DotNetStarter.Extensions.Mvc
 * DotNetStarter.DryIoc or DotnetStarter.StructureMap (either one is fine)
+  * **NOTE** The container package dependencies may need to be updated to resolve issues.
 
 Create a custom global.asax class inheriting from **Umbraco.Web.UmbracoApplication** and in the constructor execute DotNetStarter.ApplicationContext.Startup.
 
@@ -123,6 +125,14 @@ public class ApplicationSetupMvc : ApplicationEventHandler
         Umbraco.Web.Mvc.DefaultRenderMvcControllerResolver.Current.SetDefaultControllerType(typeof(CustomApplicationBaseController));
     }
 }
+```
+Also note, razor views will need to use one of the follow instead of **@inherits Umbraco.Web.Mvc.TemplatePage**
+```cs
+@model RenderingsExample.Models.ViewModels.Home // where class implements IUmbracoRendering
+```
+or
+```cs
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<T> // where T is class implementing IUmbracoRendering
 ```
 
 ## Rendering Example
