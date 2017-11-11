@@ -31,7 +31,7 @@ namespace Renderings.Tests
         [TestMethod]
         public void ShouldResolveCreatorFromScopedLocatorAndCreateInstance()
         {
-            using (var scoped = Locator.Service.OpenScope())
+            using (var scoped = Locator.Service.Get<ILocatorScopedFactory>().CreateScope())
             {
                 var creator = scoped.Get<IRenderingCreatorScoped>().GetCreator<MockSource>("test");
                 var sut = DotNetStarter.ApplicationContext.Default.Locator.Get(creator.GetType()) as Func<MockSource, MockRendering>;

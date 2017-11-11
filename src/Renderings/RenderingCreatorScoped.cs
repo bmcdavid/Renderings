@@ -17,10 +17,23 @@ namespace Renderings
         /// </summary>
         /// <param name="renderingTypeResolver"></param>
         /// <param name="scopedLocator"></param>
+        [Obsolete]
         public RenderingCreatorScoped(IRenderingTypeResolver renderingTypeResolver, ILocator scopedLocator)
         {
             _RenderingTypeResolver = renderingTypeResolver;
             _ScopedLocator = scopedLocator;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="renderingTypeResolver"></param>
+        /// <param name="locator"></param>
+        /// <param name="scopedLocator"></param>
+        public RenderingCreatorScoped(IRenderingTypeResolver renderingTypeResolver, ILocator locator, ILocatorScopedAccessor scopedLocator)
+        {
+            _RenderingTypeResolver = renderingTypeResolver;
+            _ScopedLocator = scopedLocator.CurrentScope ?? throw new ArgumentNullException(nameof(scopedLocator));
         }
 
         /// <summary>

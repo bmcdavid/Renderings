@@ -23,8 +23,8 @@ namespace Renderings.Tests
     {
         public ILocatorRegistry CreateRegistry()
         {
-            return new DotNetStarter.DryIocLocator();
-            //return new DotNetStarter.StructureMapLocator();
+            //return new DotNetStarter.DryIocLocator();
+            return new DotNetStarter.StructureMapLocator();
         }
     }
     
