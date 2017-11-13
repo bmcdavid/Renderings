@@ -33,7 +33,7 @@ namespace Renderings
         public RenderingCreatorScoped(IRenderingTypeResolver renderingTypeResolver, ILocator locator, ILocatorScopedAccessor scopedLocator)
         {
             _RenderingTypeResolver = renderingTypeResolver;
-            _ScopedLocator = scopedLocator.CurrentScope ?? throw new ArgumentNullException(nameof(scopedLocator));
+            _ScopedLocator = scopedLocator.CurrentScope ?? throw new ArgumentNullException(nameof(scopedLocator), "Current scoped locator is null!");
         }
 
         /// <summary>

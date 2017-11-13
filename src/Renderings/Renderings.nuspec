@@ -8,7 +8,7 @@
     <owners>Brad McDavid</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET model rendering framework.</description>
-    <releaseNotes>Initial release.</releaseNotes>
+    <releaseNotes>Updated DotNetStarter.Abstractions dependency for better scoping support.</releaseNotes>
     <copyright>Copyright $year$</copyright>
     <tags>rendering viewmodels</tags>
     <dependencies>
