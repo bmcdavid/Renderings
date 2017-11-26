@@ -22,9 +22,9 @@ namespace Renderings
                 IEnumerable<Type> renderingTypes = engine.Configuration
                             .AssemblyScanner.GetTypesFor(typeof(RenderingDocumentAliasAttribute));
 
-                foreach (var controller in renderingTypes.Where(x => !x.IsAbstract() && !x.IsInterface()))
+                foreach (var rendering in renderingTypes.Where(x => !x.IsAbstract() && !x.IsInterface()))
                 {
-                    registry?.Add(controller, controller, lifeTime: LifeTime.Transient);
+                    registry?.Add(rendering, rendering, lifecycle: Lifecycle.Transient);
                 }
             };
         }

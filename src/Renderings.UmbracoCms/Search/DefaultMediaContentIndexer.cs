@@ -7,7 +7,7 @@
     /// <summary>
     /// Default implementation of IMediaContentIndexer
     /// </summary>
-    [Register(typeof(IMediaContentIndexer), LifeTime.Singleton)]
+    [Registration(typeof(IMediaContentIndexer), Lifecycle.Singleton)]
     public class DefaultMediaContentIndexer : IMediaContentIndexer
     {
         /// <summary>

@@ -8,12 +8,12 @@
     <owners>Brad McDavid</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET model rendering framework for Umbraco.</description>
-    <releaseNotes>Updated Umbraco.Core dependency version.</releaseNotes>
+    <releaseNotes>Updated DotNetStarter dependency</releaseNotes>
     <copyright>Copyright $year$</copyright>
     <tags>rendering viewmodels Umbraco</tags>
     <dependencies>
       <group targetFramework="net45">
-        <dependency id="Renderings" version="[1.0.3,)" />
+        <dependency id="Renderings" version="[1.0.4,)" />
         <dependency id="UmbracoCms.Core" version="[7.7,)" />
       </group>
     </dependencies>

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Renderings.Tests;
 
 [assembly: DiscoverableAssembly]
-[assembly: LocatorRegistryFactory(typeof(CustomLocatorFactory), typeof(DotNetStarter.DryIocLocatorFactory))]
+[assembly: LocatorRegistryFactory(typeof(CustomLocatorFactory), typeof(DotNetStarter.Locators.DryIocLocatorFactory))]
 
 namespace Renderings.Tests
 {
@@ -23,8 +23,8 @@ namespace Renderings.Tests
     {
         public ILocatorRegistry CreateRegistry()
         {
-            //return new DotNetStarter.DryIocLocator();
-            return new DotNetStarter.StructureMapLocator();
+            //return new DotNetStarter.Locators.DryIocLocator();
+            return new DotNetStarter.Locators.StructureMapLocator();
         }
     }
     

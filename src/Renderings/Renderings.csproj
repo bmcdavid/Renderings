@@ -9,8 +9,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="DotNetStarter.Abstractions" Version="1.3.0" />
-    <PackageReference Include="DotNetStarter.RegistrationAbstractions" Version="1.0.1" />
+    <PackageReference Include="DotNetStarter.Abstractions" Version="2.0.0" />
+    <PackageReference Include="DotNetStarter.RegistrationAbstractions" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
