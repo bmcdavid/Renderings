@@ -1,9 +1,9 @@
 ﻿using DotNetStarter.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Renderings.Tests.Mocks;
+using Renderings.UnitTests.Mocks;
 using System;
 
-namespace Renderings.Tests
+namespace Renderings.UnitTests
 {
     [TestClass]
     public class CreatorAndTypeResolverTests

@@ -1,6 +1,6 @@
 ﻿using DotNetStarter.Abstractions;
 
-namespace Renderings.Tests.Mocks
+namespace Renderings.UnitTests.Mocks
 {
     [Registration(typeof(IService), Lifecycle.Singleton)]
     public class Service : IService

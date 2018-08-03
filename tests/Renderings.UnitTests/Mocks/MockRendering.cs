@@ -1,4 +1,4 @@
-﻿namespace Renderings.Tests.Mocks
+﻿namespace Renderings.UnitTests.Mocks
 {
     [RenderingDocumentAlias("test")]
     public class MockRendering : ISidebar, IRendering
