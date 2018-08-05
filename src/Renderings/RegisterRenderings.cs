@@ -15,7 +15,7 @@ namespace Renderings
     [StartupModule]
     public class RegisterRenderings : ILocatorConfigure
     {
-        void ILocatorConfigure.Configure(ILocatorRegistry registry, IStartupEngine engine)
+        void ILocatorConfigure.Configure(ILocatorRegistry registry, ILocatorConfigureEngine engine)
         {
             engine.OnLocatorStartupComplete += () =>
             {

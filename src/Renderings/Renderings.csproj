@@ -11,7 +11,7 @@
     <Copyright>Copyright $(CurrentYear)</Copyright>
     <Description>.NET model rendering framework.</Description>
     <!--follow semantic versioning may include prelease information too-->
-    <PackageVersion>1.0.4</PackageVersion>
+    <PackageVersion>1.0.5</PackageVersion>
     <PackageTags>rendering viewmodels</PackageTags>
     <!--do not change unless you want to deal with assembly redirects-->
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -21,7 +21,7 @@
   <Import Project="..\..\targets\CommonNuGetPackage.props" />
   
   <ItemGroup>
-    <PackageReference Include="DotNetStarter.Abstractions" Version="2.0.0" />
+    <PackageReference Include="DotNetStarter.Abstractions" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

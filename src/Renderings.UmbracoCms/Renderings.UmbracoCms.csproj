@@ -10,7 +10,7 @@
     <Copyright>Copyright $(CurrentYear)</Copyright>
     <Description>.NET model rendering framework for Umbraco.</Description>
     <!--follow semantic versioning may include prelease information too-->
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <PackageTags>rendering viewmodels</PackageTags>
     <!--do not change unless you want to deal with assembly redirects-->
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Renderings\Renderings.csproj" />
-    <PackageReference Include="DotNetStarter.Abstractions" Version="2.0.0" />
+    <PackageReference Include="DotNetStarter.Abstractions" Version="3.0.0" />
     <PackageReference Include="UmbracoCms.Core" Version="7.7.0" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
