@@ -12,7 +12,7 @@ namespace Renderings.UmbracoCms
     [StartupModule]
     public class UmbracoLocatorConfigure : ILocatorConfigure
     {
-        void ILocatorConfigure.Configure(ILocatorRegistry registry, IStartupEngine engine)
+        void ILocatorConfigure.Configure(ILocatorRegistry registry, ILocatorConfigureEngine engine)
         {
             // use scoped to not create many per web request, also cannot use given locator to resolve scoped items
             registry.Add(typeof(UmbracoContext), locator => EnsureUmbracoContext(), Lifecycle.Scoped);

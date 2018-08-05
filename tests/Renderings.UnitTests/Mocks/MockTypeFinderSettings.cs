@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Renderings.Tests.Mocks
+namespace Renderings.UnitTests.Mocks
 {
     [Registration(typeof(IRenderingTypeFinderSettings), Lifecycle.Singleton)]
     public class MockTypeFinderSettings : IRenderingTypeFinderSettings

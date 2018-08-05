@@ -1,16 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\targets\AddReleaseNotes.targets" />
+  <Import Project="..\..\targets\AddReadMeMarkdown.targets" />
+  <Import Project="..\..\targets\CommonBuild.props" />
+  <Import Project="..\..\targets\SignDll.props" />
 
   <PropertyGroup>
+    <PackageId>Renderings</PackageId>
     <TargetFrameworks>net40;net45;netstandard1.0</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Renderings.xml</DocumentationFile>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\renderings.snk</AssemblyOriginatorKeyFile>
+    <Authors>Brad McDavid</Authors>
+    <Copyright>Copyright $(CurrentYear)</Copyright>
+    <Description>.NET model rendering framework.</Description>
+    <!--follow semantic versioning may include prelease information too-->
+    <PackageVersion>1.0.5</PackageVersion>
+    <PackageTags>rendering viewmodels</PackageTags>
+    <!--do not change unless you want to deal with assembly redirects-->
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
+
+  <Import Project="..\..\targets\CommonNuGetPackage.props" />
   
   <ItemGroup>
-    <PackageReference Include="DotNetStarter.Abstractions" Version="2.0.0" />
-    <PackageReference Include="DotNetStarter.RegistrationAbstractions" Version="1.1.0" />
+    <PackageReference Include="DotNetStarter.Abstractions" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

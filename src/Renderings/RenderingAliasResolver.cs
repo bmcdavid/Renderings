@@ -173,9 +173,7 @@ namespace Renderings
         /// <returns></returns>
         protected static TValue GetPropertyAttributeValue<TAttribute, TValue>(MemberInfo memberInfo, Func<TAttribute, TValue> valueSelector) where TAttribute : Attribute
         {
-            var attr = memberInfo.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
-
-            return attr != null ? valueSelector(attr) :
+            return memberInfo.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() is TAttribute attr ? valueSelector(attr) :
                 throw new Exception($"Unable to find attribute {typeof(TAttribute).FullName} on {memberInfo.Name}");// default(TValue);
         }
 
@@ -212,7 +210,7 @@ namespace Renderings
 
         private bool TryThrow(string alias)
         {
-            var environment = (_StartupConfiguration as IStartupConfigurationWithEnvironment)?.Environment;
+            var environment = _StartupConfiguration.Environment;
 
             if (environment == null || environment.IsProduction() == true)
             {

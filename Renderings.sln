@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renderings.UmbracoCms", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6FE87633-B7B3-40F6-A7B9-5DB2401F5E16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renderings.Tests", "tests\Renderings.Tests\Renderings.Tests.csproj", "{5DC5BFFB-C4D4-4DE8-A558-A85262E58211}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47DFF5BF-860D-4B6F-9852-63ADBC9C8D94}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -21,6 +19,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 		.nuget\setVersion.ps1 = .nuget\setVersion.ps1
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{0120FBCA-A1E2-42CA-BC2E-AD979AEE565B}"
+	ProjectSection(SolutionItems) = preProject
+		targets\AddReadMeMarkdown.targets = targets\AddReadMeMarkdown.targets
+		targets\AddReleaseNotes.targets = targets\AddReleaseNotes.targets
+		targets\CommonBuild.props = targets\CommonBuild.props
+		targets\CommonNuGetPackage.props = targets\CommonNuGetPackage.props
+		targets\SignDll.props = targets\SignDll.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renderings.UnitTests", "tests\Renderings.UnitTests\Renderings.UnitTests.csproj", "{A7055726-D6DA-4BFB-B543-0E73689898A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,16 +45,16 @@ Global
 		{AEE3D7DC-63F7-41F7-A6CD-A7258AEF48A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEE3D7DC-63F7-41F7-A6CD-A7258AEF48A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEE3D7DC-63F7-41F7-A6CD-A7258AEF48A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DC5BFFB-C4D4-4DE8-A558-A85262E58211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DC5BFFB-C4D4-4DE8-A558-A85262E58211}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DC5BFFB-C4D4-4DE8-A558-A85262E58211}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DC5BFFB-C4D4-4DE8-A558-A85262E58211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7055726-D6DA-4BFB-B543-0E73689898A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7055726-D6DA-4BFB-B543-0E73689898A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7055726-D6DA-4BFB-B543-0E73689898A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7055726-D6DA-4BFB-B543-0E73689898A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5DC5BFFB-C4D4-4DE8-A558-A85262E58211} = {6FE87633-B7B3-40F6-A7B9-5DB2401F5E16}
+		{A7055726-D6DA-4BFB-B543-0E73689898A2} = {6FE87633-B7B3-40F6-A7B9-5DB2401F5E16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47A24E34-B220-4E13-A1B2-DB540F44C43C}
