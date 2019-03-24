@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Core.Models.PublishedContent;
+using Umbraco.Web;
 using Umbraco.Web.Models;
 
 namespace Renderings.UmbracoCms
@@ -14,15 +16,19 @@ namespace Renderings.UmbracoCms
     {
         private readonly IRenderingAliasResolver _DescriptorResolver;
         private readonly IRenderingCreatorScoped _ViewModelCreatorScoped;
+        private readonly UmbracoHelper _umbracoHelper;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="publishedContentAliasResolver"></param>
         /// <param name="viewModelCreatorScoped"></param>
-        public RelatedLinksToRenderingConverter(IRenderingAliasResolver publishedContentAliasResolver, IRenderingCreatorScoped viewModelCreatorScoped)        {
+        /// <param name="umbracoHelper"></param>
+        public RelatedLinksToRenderingConverter(IRenderingAliasResolver publishedContentAliasResolver, IRenderingCreatorScoped viewModelCreatorScoped, UmbracoHelper umbracoHelper)
+        {
             _DescriptorResolver = publishedContentAliasResolver;
             _ViewModelCreatorScoped = viewModelCreatorScoped;
+            _umbracoHelper = umbracoHelper;
         }
 
         /// <summary>
@@ -39,20 +45,18 @@ namespace Renderings.UmbracoCms
             var list = new List<T>();
             var aliases = _DescriptorResolver.ResolveTypes(allowedTypes);
 
-            //todo: brad figure out how to handle
-            //_umbracoContextFactory.EnsureUmbracoContext().UmbracoContext.g
+            foreach (var item in relatedLinks)
+            {
+                var publishedContent = _umbracoHelper.Content(item.Udi);
+                if (aliases.Any(a => a == publishedContent.ContentType.Alias))
+                {
+                    T content = (T)_ViewModelCreatorScoped.GetCreator<IPublishedContent>(publishedContent.ContentType.Alias).Invoke(publishedContent);
+                    var relatedContentLink = content as ISetRelatedLink;
+                    relatedContentLink?.SetLink(item); // give the link data to the model
 
-            //foreach (var item in relatedLinks)
-            //{
-            //    if (aliases.Any(a => a == item.Udi.ToPublishedContent();.?.Conte))
-            //    {
-            //        T content = (T)_ViewModelCreatorScoped.GetCreator<IPublishedContent>(item.Content.DocumentTypeAlias).Invoke(item.Content);
-            //        var relatedContentLink = content as ISetRelatedLink;
-            //        relatedContentLink?.SetLink(item); // give the link data to the model
-
-            //        list.Add(content);
-            //    }
-            //}
+                    list.Add(content);
+                }
+            }
 
             return list;
         }
