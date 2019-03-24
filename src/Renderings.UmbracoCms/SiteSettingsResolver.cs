@@ -1,7 +1,7 @@
 ﻿using DotNetStarter.Abstractions;
 using System;
 using System.Linq;
-using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Renderings.UmbracoCms
@@ -45,9 +45,9 @@ namespace Renderings.UmbracoCms
             string settingsDocTypeAlias = _PublishedContentDescriptorResolver.ResolveType(settingsViewModelType);
 
             IPublishedContent settingsContent = umbracoHelper
-                .TypedContent(homepageNodeId.Value)
+                .Content(homepageNodeId.Value)
                 .Children
-                .FirstOrDefault(child => child.DocumentTypeAlias == settingsDocTypeAlias);
+                .FirstOrDefault(child => child.ContentType.Alias == settingsDocTypeAlias);
 
             return settingsContent;
         }
@@ -66,7 +66,7 @@ namespace Renderings.UmbracoCms
 
         private UmbracoHelper ResolveHelper(UmbracoHelper umbracoHelper)
         {
-            return umbracoHelper ?? new UmbracoHelper(UmbracoContext.Current);
+            return umbracoHelper ?? Umbraco.Web.Composing.Current.UmbracoHelper;
         }
     }
 }

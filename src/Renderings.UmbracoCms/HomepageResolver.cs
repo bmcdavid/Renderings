@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Models;
 using Umbraco.Web;
+using Umbraco.Web.Routing;
 
 namespace Renderings.UmbracoCms
 {
@@ -13,10 +14,23 @@ namespace Renderings.UmbracoCms
     [Registration(typeof(IHomepageResolver), Lifecycle.Singleton)]
     public class HomepageResolver : IHomepageResolver
     {
+        private readonly IUmbracoContextAccessor _umbracoContextAccessor;
+        private readonly UrlProvider _urlProvider;
         private Dictionary<string, int?> _ResolvedNodeIds = new Dictionary<string, int?>();
 
         /// <summary>
         /// Constructor
+        /// </summary>
+        /// <param name="umbracoContextAccessor"></param>
+        /// <param name="urlProvider"></param>
+        public HomepageResolver(IUmbracoContextAccessor umbracoContextAccessor, UrlProvider urlProvider)
+        {
+            _umbracoContextAccessor = umbracoContextAccessor;
+            _urlProvider = urlProvider;
+        }
+
+        /// <summary>
+        /// Gets homepage by Id
         /// </summary>
         /// <param name="requestUrl"></param>
         /// <param name="umbracoHelper"></param>
@@ -33,7 +47,7 @@ namespace Renderings.UmbracoCms
             if (!_ResolvedNodeIds.TryGetValue(urlToCompare, out int? id))
             {
                 // check by current content request if set
-                var currentNode = umbracoHelper.UmbracoContext.PublishedContentRequest?.PublishedContent ?? null;
+                var currentNode = _umbracoContextAccessor.UmbracoContext.PublishedRequest?.PublishedContent ?? null;
 
                 if (currentNode != null)
                 {
@@ -49,13 +63,13 @@ namespace Renderings.UmbracoCms
                 // fallback to URL matching on root nodes
                 if (id == null)
                 {
-                    var rootNodes = umbracoHelper.TypedContentAtRoot();
+                    var rootNodes = umbracoHelper.ContentAtRoot();
 
                     foreach (var node in rootNodes)
                     {
-                        List<string> urls = new List<string>(umbracoHelper.UrlProvider.GetOtherUrls(node.Id))
+                        List<string> urls = new List<string>(_urlProvider.GetOtherUrls(node.Id).Select(x => x.Text))//todo: verify text assumption
                         {
-                            umbracoHelper.UrlProvider.GetUrl(node.Id, absolute: true) // last url defined in UI
+                            _urlProvider.GetUrl(node.Id, absolute: true) // last url defined in UI
                         };
 
                         var match = urls.FirstOrDefault(x => string.CompareOrdinal(x, urlToCompare) == 0);
@@ -83,7 +97,7 @@ namespace Renderings.UmbracoCms
         {
             var helper = EnsureUmbracoHelper(umbracoHelper);
 
-            return ResolveHomepageNodeId(helper.UmbracoContext.HttpContext.Request.Url, helper);
+            return ResolveHomepageNodeId(_umbracoContextAccessor.UmbracoContext.HttpContext.Request.Url, helper);
         }
 
         /// <summary>
@@ -110,7 +124,7 @@ namespace Renderings.UmbracoCms
 
         private UmbracoHelper EnsureUmbracoHelper(UmbracoHelper umbracoHelper)
         {
-            return umbracoHelper ?? new UmbracoHelper(UmbracoContext.Current);
+            return umbracoHelper ?? Umbraco.Web.Composing.Current.UmbracoHelper;
         }
 
         private int? ResolveFromPath(string path)

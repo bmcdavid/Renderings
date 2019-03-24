@@ -11,6 +11,6 @@ namespace Renderings.UmbracoCms
         /// Provides the related link information to the rendering model
         /// </summary>
         /// <param name="link"></param>
-        void SetLink(RelatedLink link);
+        void SetLink(Link link);
     }
 }

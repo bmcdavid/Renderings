@@ -12,6 +12,6 @@ namespace Renderings.UmbracoCms
         /// <summary>
         /// Provides current umbraco context
         /// </summary>
-        public virtual UmbracoContext Current => UmbracoContext.Current;
+        public virtual UmbracoContext Current => Umbraco.Web.Composing.Current.UmbracoContext;
     }
 }

@@ -10,10 +10,9 @@ namespace Renderings.UmbracoCms
     public class UmbracoHelperProvider
     {
         /// <summary>
-        /// Creates umbraco helper
+        /// Gets an umbraco helper
         /// </summary>
-        /// <param name="umbracoContext"></param>
         /// <returns></returns>
-        public virtual UmbracoHelper CreateHelper(UmbracoContext umbracoContext = null) => new UmbracoHelper(umbracoContext ?? UmbracoContext.Current);
+        public virtual UmbracoHelper Current => Umbraco.Web.Composing.Current.UmbracoHelper;
     }
 }

@@ -5,7 +5,7 @@
 
   <PropertyGroup>
     <PackageId>Renderings.UmbracoCms</PackageId>
-    <TargetFrameworks>net45</TargetFrameworks>
+    <TargetFrameworks>net472</TargetFrameworks>
     <Authors>Brad McDavid</Authors>
     <Copyright>Copyright $(CurrentYear)</Copyright>
     <Description>.NET model rendering framework for Umbraco.</Description>
@@ -20,9 +20,16 @@
   <Import Project="..\..\targets\CommonNuGetPackage.props" />
 
   <ItemGroup>
+    <Compile Remove="Search\**" />
+    <EmbeddedResource Remove="Search\**" />
+    <None Remove="Search\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Renderings\Renderings.csproj" />
     <PackageReference Include="DotNetStarter.Abstractions" Version="3.0.0" />
-    <PackageReference Include="UmbracoCms.Core" Version="7.7.0" />
+    <PackageReference Include="UmbracoCms.Core" Version="8.0.1" />
+    <PackageReference Include="UmbracoCms.Web" Version="8.0.1" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web" />
   </ItemGroup>

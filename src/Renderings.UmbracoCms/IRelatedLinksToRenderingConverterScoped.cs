@@ -16,6 +16,6 @@ namespace Renderings.UmbracoCms
         /// <param name="relatedLinks"></param>
         /// <param name="allowedViewModelTypes"></param>
         /// <returns></returns>
-        IList<T> ConvertLinks<T>(IEnumerable<RelatedLink> relatedLinks, ICollection<Type> allowedViewModelTypes);
+        IList<T> ConvertLinks<T>(IEnumerable<Link> relatedLinks, ICollection<Type> allowedViewModelTypes);
     }
 }

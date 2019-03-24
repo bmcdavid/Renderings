@@ -1,5 +1,5 @@
 ﻿using System;
-using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Renderings.UmbracoCms

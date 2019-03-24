@@ -1,9 +1,8 @@
 ﻿using DotNetStarter.Abstractions;
 using Examine;
-using Examine.SearchCriteria;
 using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Core.Models;
+using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
 namespace Renderings.UmbracoCms.Search
@@ -86,8 +85,8 @@ namespace Renderings.UmbracoCms.Search
         {
             var pagedSet = allResults.Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(x => x.Id).ToList();
 
-            return _uHelper.TypedContent(pagedSet)
-                        .Union(_uHelper.TypedMedia(pagedSet));
+            return _uHelper.Content(pagedSet)
+                        .Union(_uHelper.Media(pagedSet));
         }
     }
 }
